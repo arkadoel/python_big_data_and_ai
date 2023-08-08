@@ -124,3 +124,6 @@ class Player:
         int: devuelve 1 si reproduce correctamente, sino devuelve cero
         """
 ```
+
+Para publica paquete ver video 
+PublicandoPaquetes.mp4
