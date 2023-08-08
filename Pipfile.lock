@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "70111f361729d2e02e0d5dfb0c3a273b07b831e8d6cc97ba906d8a3ebcd9a2de"
+            "sha256": "550649f73f79ae3898a9443c428bcb091e5fdae69c5b5c9ff71b005250d0744d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "attrs": {
+            "hashes": [
+                "sha256:1f28b4522cdc2fb4256ac1a020c78acf9cba2c6b461ccd2c126f3aa8e8335d04",
+                "sha256:6279836d581513a26f1bf235f9acd333bc9115683f14f7e8fae46c98fc50e015"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==23.1.0"
+        },
         "beautifulsoup4": {
             "hashes": [
                 "sha256:492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da",
@@ -23,6 +31,14 @@
             ],
             "index": "pypi",
             "version": "==4.12.2"
+        },
+        "certifi": {
+            "hashes": [
+                "sha256:539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082",
+                "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==2023.7.22"
         },
         "et-xmlfile": {
             "hashes": [
@@ -32,6 +48,30 @@
             "markers": "python_version >= '3.6'",
             "version": "==1.1.0"
         },
+        "exceptiongroup": {
+            "hashes": [
+                "sha256:12c3e887d6485d16943a309616de20ae5582633e0a2eda17f4e10fd61c1e8af5",
+                "sha256:e346e69d186172ca7cf029c8c1d16235aa0e04035e5750b4b95039e65204328f"
+            ],
+            "markers": "python_version < '3.11'",
+            "version": "==1.1.2"
+        },
+        "h11": {
+            "hashes": [
+                "sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d",
+                "sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==0.14.0"
+        },
+        "idna": {
+            "hashes": [
+                "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4",
+                "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"
+            ],
+            "markers": "python_version >= '3.5'",
+            "version": "==3.4"
+        },
         "openpyxl": {
             "hashes": [
                 "sha256:a6f5977418eff3b2d5500d54d9db50c8277a368436f4e4f8ddb1be3422870184",
@@ -40,6 +80,45 @@
             "index": "pypi",
             "version": "==3.1.2"
         },
+        "outcome": {
+            "hashes": [
+                "sha256:6f82bd3de45da303cf1f771ecafa1633750a358436a8bb60e06a1ceb745d2672",
+                "sha256:c4ab89a56575d6d38a05aa16daeaa333109c1f96167aba8901ab18b6b5e0f7f5"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==1.2.0"
+        },
+        "pysocks": {
+            "hashes": [
+                "sha256:08e69f092cc6dbe92a0fdd16eeb9b9ffbc13cadfe5ca4c7bd92ffb078b293299",
+                "sha256:2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5",
+                "sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0"
+            ],
+            "version": "==1.7.1"
+        },
+        "selenium": {
+            "hashes": [
+                "sha256:98e72117b194b3fa9c69b48998f44bf7dd4152c7bd98544911a1753b9f03cc7d",
+                "sha256:9f9a5ed586280a3594f7461eb1d9dab3eac9d91e28572f365e9b98d9d03e02b5"
+            ],
+            "index": "pypi",
+            "version": "==4.11.2"
+        },
+        "sniffio": {
+            "hashes": [
+                "sha256:e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101",
+                "sha256:eecefdce1e5bbfb7ad2eeaabf7c1eeb404d7757c379bd1f7e5cce9d8bf425384"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==1.3.0"
+        },
+        "sortedcontainers": {
+            "hashes": [
+                "sha256:25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88",
+                "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0"
+            ],
+            "version": "==2.4.0"
+        },
         "soupsieve": {
             "hashes": [
                 "sha256:1c1bfee6819544a3447586c889157365a27e10d88cde3ad3da0cf0ddf646feb8",
@@ -47,6 +126,41 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.4.1"
+        },
+        "trio": {
+            "hashes": [
+                "sha256:3887cf18c8bcc894433420305468388dac76932e9668afa1c49aa3806b6accb3",
+                "sha256:f43da357620e5872b3d940a2e3589aa251fd3f881b65a608d742e00809b1ec38"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==0.22.2"
+        },
+        "trio-websocket": {
+            "hashes": [
+                "sha256:1a748604ad906a7dcab9a43c6eb5681e37de4793ba0847ef0bc9486933ed027b",
+                "sha256:a9937d48e8132ebf833019efde2a52ca82d223a30a7ea3e8d60a7d28f75a4e3a"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==0.10.3"
+        },
+        "urllib3": {
+            "extras": [
+                "socks"
+            ],
+            "hashes": [
+                "sha256:8d22f86aae8ef5e410d4f539fde9ce6b2113a001bb4d189e0aed70642d602b11",
+                "sha256:de7df1803967d2c2a98e4b11bb7d6bd9210474c46e8a0401514e3a42a75ebde4"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==2.0.4"
+        },
+        "wsproto": {
+            "hashes": [
+                "sha256:ad565f26ecb92588a3e43bc3d96164de84cd9902482b130d0ddbaa9664a85065",
+                "sha256:b9acddd652b585d75b20477888c56642fdade28bdfd3579aa24a4d2c037dd736"
+            ],
+            "markers": "python_full_version >= '3.7.0'",
+            "version": "==1.2.0"
         }
     },
     "develop": {}
