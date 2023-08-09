@@ -22,3 +22,4 @@ Loading .env environment variables...
 
 y ya podemos ejecutar python3 01-env.py 
 **luego añadimos el .env en el .gitignore, para que no suba**
+

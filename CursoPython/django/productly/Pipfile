@@ -4,9 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-beautifulsoup4 = "*"
-openpyxl = "*"
-selenium = "*"
+django = "==4.1.7"
 
 [dev-packages]
 
