@@ -5,6 +5,10 @@ from django.utils import timezone
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255) #cadena de texto limitada
     
+    def __str__(self):
+        """devuelve la clase como string"""
+        return str(self.nombre)
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=255)
     stock = models.IntegerField()
@@ -15,4 +19,8 @@ class Producto(models.Model):
     # SET_NULL: actualiza a valor nulo
     # SET_DEFAULT: asigna el valor por defecto 
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    creado_en = models.DateField(default=timezone.now)
+    creado_en = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        """devuelve la clase como string"""
+        return str(self.nombre)

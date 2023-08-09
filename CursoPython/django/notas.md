@@ -151,4 +151,74 @@ python3 manage.py createsuperuser
 ponemos fer y una contraseña tonta de 123456
 volvemos a arrancar el servidor
 
-Ahora vamos a configurar los modelos para que salgan en la pantalla de administracion
+Ahora vamos a configurar los modelos para que salgan en la pantalla de administracion.
+Editamos productos/admin.py
+
+```python
+from django.contrib import admin
+from .models import Categoria, Producto
+
+# Register your models here.
+admin.site.register(Categoria)
+admin.site.register(Producto)
+```
+
+Luego añadimos una categoria. Vemos que pone Categoria.object(1) Vemos que lo pone un poco raro, ahora vamos personalizar como representa las cosas en el administrador.
+Vamos a models y en la parte de categoria añadiemos el metodo string
+```python
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=255) #cadena de texto limitada
+    
+    def __str__(self):
+        """devuelve la clase como string"""
+        return str(self.nombre)
+```
+con esto ya pone Deportes en el nombre
+
+Para personalizar las columnas a mostrar en el administrador de modelos, vamos a admin.py y añadimos una clase CategoriaAdmin para luego añadirla al admin.site.register
+```python
+from django.contrib import admin
+from .models import Categoria, Producto
+
+
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+
+# Register your models here.
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Producto)
+```
+
+haremos lo mismo con el producto
+```python
+
+class Productodmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre', 'stock', 'creado_en')
+
+# Register your models here.
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Producto, Productodmin)
+```
+queremos ahora ocultar el campo creado_en a la hora de crear el producto y que se asigne con la fecha actual automaticamente
+- con fields= indicamos los campos que queremos que aparezcan
+- con exclude= los campos que queremos ocultar
+
+```python
+#productos/admin.py
+from django.contrib import admin
+from .models import Categoria, Producto
+
+
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre')
+
+class Productodmin(admin.ModelAdmin):
+    exclude = ('creado_en', ) #la coma es para que se sepa que es una tupla y no un simple string
+    list_display = ('id', 'nombre', 'stock', 'creado_en')
+
+# Register your models here.
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Producto, Productodmin)
+```
+
+# como consultar datos de bbdd
