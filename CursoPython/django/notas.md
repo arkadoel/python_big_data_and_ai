@@ -400,3 +400,52 @@ TEMPLATES = [
 y añadimos [os.path.join(BASE_DIR, 'templates')],
 ahora a la altura del manage.py creamos una carpeta templates.
 arrastramos el archivo base.html a esa nueva carpeta
+
+**ATAJO** CON CTRL+P puedes navegar por los archivos por nombre como en visual studio normal
+
+# parametros por la url
+
+vamos al archivo productos/urls.py y añadimos una linea
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', view=views.index, name='index'),
+    path('<int:producto_id>', view=views.detalle, name='producto_detalle')
+]
+```
+lanzará un error cuando producto_id no sea un entero.
+
+editamos views.py para agregar el metodo detalle
+```python
+def detalle(request, producto_id):
+    return HttpResponse(producto_id)
+```
+
+ahora cambiamos el metodo de detalle para añadir una plantilla
+```python
+def detalle(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    return render(request, 'detalle.html', context={'producto': producto})
+```
+y añadimos la template/detalle.html
+
+div>h6+p*4
+
+y quedara asi
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <h6>{{ producto.nombre }}</h6>
+    <p>{{ producto.categoria }}</p>
+    <p>{{ producto.stock }}</p>
+    <p>{{ producto.puntaje }}</p>
+    <p>{{ producto.creado_en }}</p>
+</div>
+
+{% endblock %}
+```

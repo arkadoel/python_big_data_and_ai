@@ -34,3 +34,7 @@ def index(request):
         'index.html',
         context={'productos' : productos}
     )
+
+def detalle(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    return render(request, 'detalle.html', context={'producto': producto})
