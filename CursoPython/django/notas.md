@@ -288,7 +288,7 @@ dentro de la carpeta productos creamos una carpeta llamada templates. Ahí agreg
 damos a runserver y vamos a http://127.0.0.1:8000/productos/ donde vemos que nos sale la pagina
 
 **EMET** permite escribir las plantillas.
-Al escribir esto y pulsar entes nos generara una tabla con cuatro celdas en una fila
+Al escribir esto y pulsar enter nos generara una tabla con cuatro celdas en una fila
 
 table.table>thead>tr>th*4
 
@@ -333,3 +333,70 @@ para escribir instrucciones de python pondremos {%%} y para las variables {{ nom
     </tbody>
 </table>
 ```
+
+# agregar frameworks css
+
+agregamos templates/base.html. escribimos ! y pusamos enter para que genere codigo html. Agregamos un bloque para el codigo
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productly</title>
+</head>
+<body>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>
+```
+esto anterior funcionara como pagina maestra o layout en otros lenguajes.
+
+regresamos a index.html y al inicio del archivo ponemos el extends y lo encapsulamos en el bloque de contenido
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<!--templates/index.html-->
+<h1>Productos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>NOMBRE</th>
+            <th>STOCK</th>
+            <th>PUNTAJE</th>
+            <th>CATEGORIA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+```
+ahora vamos a bootstrap y añadimos en base.html tanto el css como el script (el script debajo de la zona de content)
+
+# ver video de carga de plantillas desde otras carpetas
+![cargaplantillas](cargaplantillas.mp4)
+hemos modificado
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        
+```
+y añadimos [os.path.join(BASE_DIR, 'templates')],
+ahora a la altura del manage.py creamos una carpeta templates.
+arrastramos el archivo base.html a esa nueva carpeta
