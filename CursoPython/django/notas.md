@@ -250,3 +250,86 @@ def index(request):
 
     return JsonResponse(list(productos), safe=False) #si no ponemos safe= dara un error
 ```
+
+# eliminar error pylintrc
+
+en esta linea da un error aunque no impiede la ejecucion
+```python
+productos = Producto.objects.all().values() # todos
+```
+para quitarlo instalamos
+```bash
+pipenv install pylint-django
+```
+en la carpeta productly (a la altura de manage.py) creamos un archivo .pylintrc
+y añadimos load-plugins=pylint-django
+
+cuando volvemos a abrir el archivo views.py ya no vemos el error.
+
+# plantillas
+
+dentro de views.py comentamos los anteriores metodos y ponemos el siguiente
+```python
+
+def index(request):
+    productos = Producto.objects.all()
+    
+    return render(
+        request,
+        'index.html',
+        context={'productos' : productos}
+    )
+```
+dentro de la carpeta productos creamos una carpeta llamada templates. Ahí agregamos el archivo index.html
+```html
+<!--templates/index.html-->
+<h1>Productos</h1>
+```
+damos a runserver y vamos a http://127.0.0.1:8000/productos/ donde vemos que nos sale la pagina
+
+**EMET** permite escribir las plantillas.
+Al escribir esto y pulsar entes nos generara una tabla con cuatro celdas en una fila
+
+table.table>thead>tr>th*4
+
+nos genera esto
+```html
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+```
+para añadir luego del thead el tbody ponemos tbody>tr>td*4 y damos enter.
+para escribir instrucciones de python pondremos {%%} y para las variables {{ nombre_variable }}. Por cierto, el campo categoria va a funcionar porque tiene el metodo definido __str__
+
+```html
+<!--templates/index.html-->
+<h1>Productos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>NOMBRE</th>
+            <th>STOCK</th>
+            <th>PUNTAJE</th>
+            <th>CATEGORIA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+```

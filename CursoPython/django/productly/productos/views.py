@@ -3,10 +3,12 @@ from django.http import HttpResponse, JsonResponse
 from .models import Producto
 
 # Create your views here.
+"""
+def index(request):
+    return HttpResponse('hola mundo')
+"""
 
-#def index(request):
-#    return HttpResponse('hola mundo')
-
+"""
 def index(request):
     productos = Producto.objects.all().values() # todos
     print(productos)
@@ -22,5 +24,13 @@ def index(request):
     #productos = Producto.objects.get(id=1)
 
     return JsonResponse(list(productos), safe=False) #si no ponemos safe= dara un error
+"""
 
-
+def index(request):
+    productos = Producto.objects.all()
+    
+    return render(
+        request,
+        'index.html',
+        context={'productos' : productos}
+    )
