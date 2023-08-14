@@ -700,6 +700,8 @@ pero para las validaciones necesitamos personalizar el html que escribe field, l
 ![Personalizar campos html](PersonalizarCamposHtml.mp4)
 
 
+# filtros personalizados
+![filtros personalizados html](FiltroPersonalizadoHtml.mp4)
 
 
 
