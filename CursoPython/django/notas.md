@@ -624,3 +624,59 @@ yendo a la siguiente url nos saldra el formulario
 http://127.0.0.1:8000/productos/formulario
 
 vemos que ha generado un formulario con validaciones html5 y todo.
+
+# validando y guardando formulario
+
+```python
+#views.py
+def formulario(request):
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/productos')
+    else:
+        form = ProductoForm()
+
+    return render(
+        request,
+        'producto_form.html',
+        {'form': form}
+    )
+```
+en caso de querer probar las validaciones del metodo y no las de html5, en la etiqueta form añadimos novalidate
+```html
+<form 
+    novalidate 
+    action="{% url 'productos:formulario' %}" 
+    method='post'>
+```
+el servidor respondio la plantilla pero con mensajes de aviso
+
+# personalizar formularios
+
+vamos a productly/settings.py
+para decirle a django que no renderice los formularios sino que lo hacemos nosotros. obligatoriamente tenemos que tener la aplicacion instalada django.forms
+
+```python
+# settings.py
+from django.forms.renderers import TemplatesSetting
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name = 'form_snippet.html'
+
+FROM_RENDERER = "productly.settings.CustomFormRenderer"
+```
+ahora en productos/templates creamos form_snippet.html
+```html
+{% for field in form %}
+    {{ field.label_tag }} {{ field }}
+    {% for errorin field.errors %}
+        {{ error }}
+    {% endfor %}
+{% endfor %}
+```
+field.label_tag sera la etiqueta label que añadia en los campos del formulario
+
+# agregando estilos css
+
