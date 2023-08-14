@@ -449,3 +449,178 @@ y quedara asi
 
 {% endblock %}
 ```
+# pagina 404
+
+```python
+from django.http import HttpResponse, JsonResponse, Http404
+from .models import Producto
+#. . . .
+def detalle(request, producto_id):
+    try:
+        producto = Producto.objects.get(id=producto_id)
+        return render(request, 'detalle.html', context={'producto': producto})
+    except Producto.DoesNotExist:
+        raise Http404()
+```
+el codigo anterior se puede sustituir por algo resumido como
+```python
+from django.shortcuts import render, get_object_or_404
+
+def detalle(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    return render(request, 'detalle.html', context={'producto': producto})
+```
+
+# links
+una forma de hacerlo
+```html
+  <tbody>
+        {% with fila=1 %}
+        {% for producto in productos %}
+        <tr>
+            <td><a href="/productos/{{ fila }}">
+                {{ producto.nombre }}</a></td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }}</td>
+        </tr>
+       
+        {{ fila|add:"1" }} # esto añade uno a la variable, no se pueden editar
+        {% endfor %}
+        {% endwith %}
+    </tbody>
+```
+otra forma es la siguiente. Cogiendo del archivo urls.py el **name** de donde queremos ir, en nuestro caso producto_detalle
+```html
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td><a href="{% url 'producto_detalle' producto.id %}">
+                    {{ producto.nombre }}
+                </a>
+            </td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }}</td>
+        </tr>      
+        {% endfor %}
+    </tbody>
+```
+ahora vamos a editar el urls.py para poder hacerlo mas escalable. Antes teniamos esto 
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', view=views.index, name='index'),
+    path('<int:producto_id>', view=views.detalle, name='producto_detalle')
+]
+```
+para evitar tener que estar poniendo producto_... hacemos lo siguiente
+```python
+#urls.py
+from django.urls import path
+from . import views
+
+app_name = 'productos'
+
+urlpatterns = [
+    path('', view=views.index, name='index'),
+    path('<int:producto_id>', view=views.detalle, name='detalle')
+]
+```
+vemos como hemos cambiado producto_detalle por detalle unicamente y al añadir app_name (variable reservada en django) lo coge y lo aplica.
+Ahora modificamos el html de antes para cambiar el producto_detalle
+```html
+<tbody>
+        {% for producto in productos %}
+        <tr>
+            <td><a href="{% url 'productos:detalle' producto.id %}">
+                    {{ producto.nombre }}
+                </a>
+            </td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.puntaje }}</td>
+            <td>{{ producto.categoria }}</td>
+        </tr>      
+        {% endfor %}
+    </tbody>
+```
+hemos cambiado el producto_detalle por productos:detalle
+
+**NOTA: PARA EL RESALTADO DE SINTAXIS HTML USAR PAQUETE VSCODE LLAMADO DJANGO DE baptiste Darthenay**
+
+# formularios
+
+creamos un archivo forms.py dentro de productly/productos/forms.py
+```python
+#forms.py
+from . import models
+from django.forms import ModelForm
+
+class ProductoForm(ModelForm):
+    class Meta:
+        model = models.Producto
+        fields = [
+            'nombre',
+            'stock',
+            'puntaje',
+            'categoria'
+        ]
+```
+ahora instalamos un plugin que no viene por defecto. Vamos a productly/settings.py
+añadimos django.forms
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.forms',
+    'productos.apps.ProductosConfig',
+]
+```
+
+# visualizar formularios
+
+vamos a productly/productos/urls.py y agregamos
+```python
+path('formulario', views.formulario, name='formulario'),
+```
+vamos al views y creamos el metodo formulario
+```python
+#views.py
+from .forms import ProductoForm
+def formulario(request):
+    form = ProductoForm()
+    return render(
+        request,
+        'producto_form.html',
+        {'form': form}
+    )
+```
+creamos la plantilla en productos/templates/producto_form.html
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form 
+    action="{% url 'productos:formulario' %}" 
+    method='post'>
+
+    {% csrf_token %}
+
+    {{ form }}
+    <input type="submit" value="Enviar" />
+</form>
+
+{% endblock %}
+```
+yendo a la siguiente url nos saldra el formulario 
+http://127.0.0.1:8000/productos/formulario
+
+vemos que ha generado un formulario con validaciones html5 y todo.
