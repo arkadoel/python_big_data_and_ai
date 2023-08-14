@@ -703,6 +703,85 @@ pero para las validaciones necesitamos personalizar el html que escribe field, l
 # filtros personalizados
 ![filtros personalizados html](FiltroPersonalizadoHtml.mp4)
 
+# pagina de inicio
+
+vamos a productly/urls.py y agregamos el path de inicio
+```python
+from django.contrib import admin
+from django.urls import path, include
+from . import views
 
 
+urlpatterns = [
+    path('', views.inicio, name="inicio"),
+    path('admin/', admin.site.urls),
+    path('productos/', include('productos.urls'))
+]
+```
+agregamos un archivo productly/views.py
+```python
+from django.shortcuts import render
 
+def inicio(request):
+    return render(
+        request,
+        'inicio.html'
+    )
+```
+en vez de añadir una carpeta templates dentro de productly/productly, lo que hacemos es usar la carpeta de templates comunes que creamos fuera (donde pusimos base.html)
+
+```html
+{% extends 'base.html' %}
+<!--django/productly/templates/inicio.html-->
+{% block content %}
+    hola mundo! bienvenido
+{% endblock %}
+```
+si vamos a http://127.0.0.1:8000/ vemos el mensaje
+
+# barra de navegacion
+
+vamos a bootstrap y buscamos navbar, copiamos el codigo html y vamos a base.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Productly</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'productos:index' %}">Productos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!--scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+y agregamos un boton de agregar para los productos en el archivo productos/templates/index.html
+```html
+<a href="{% url 'productos:formulario' %}">Nuevo producto</a>
+```

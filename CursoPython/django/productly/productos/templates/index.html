@@ -5,6 +5,10 @@
 <!--templates/index.html-->
 <h1>Productos</h1>
 
+<a href="{% url 'productos:formulario' %}">
+    <button type="button" class="btn btn-success">Nuevo producto</button>
+</a>
+<hr/>
 <table class="table">
     <thead>
         <tr>
