@@ -17,7 +17,7 @@ from django.forms.renderers import TemplatesSetting
 class CustomFormRenderer(TemplatesSetting):
     form_template_name = 'form_snippet.html'
 
-FROM_RENDERER = "productly.settings.CustomFormRenderer"
+FORM_RENDERER = "productly.settings.CustomFormRenderer"
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

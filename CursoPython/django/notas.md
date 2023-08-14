@@ -665,13 +665,13 @@ from django.forms.renderers import TemplatesSetting
 class CustomFormRenderer(TemplatesSetting):
     form_template_name = 'form_snippet.html'
 
-FROM_RENDERER = "productly.settings.CustomFormRenderer"
+FORM_RENDERER = "productly.settings.CustomFormRenderer"
 ```
 ahora en productos/templates creamos form_snippet.html
 ```html
 {% for field in form %}
     {{ field.label_tag }} {{ field }}
-    {% for errorin field.errors %}
+    {% for error in field.errors %}
         {{ error }}
     {% endfor %}
 {% endfor %}
@@ -679,4 +679,28 @@ ahora en productos/templates creamos form_snippet.html
 field.label_tag sera la etiqueta label que añadia en los campos del formulario
 
 # agregando estilos css
+
+de la pagina de bootstrap cogemos lo siguiente (el html)
+```html
+{% for field in form %}
+<div class="mb-3">
+    {{ field.label_tag }} {{ field }}
+    <div class="invalid-feedback">
+    {% for error in field.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}
+```
+pero para las validaciones necesitamos personalizar el html que escribe field, lo vemos en la siguiente seccion.
+
+# personalizando campos
+
+![Personalizar campos html](PersonalizarCamposHtml.mp4)
+
+
+
+
+
 
