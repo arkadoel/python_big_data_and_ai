@@ -23,3 +23,4 @@ jupyter notebook
 damos a **new** y nuevo jpykernel
 escribimos y ejecutamos hola mundo y vemos que nos guarda un archivo untitled.jpynb
 
+# carga de datos
