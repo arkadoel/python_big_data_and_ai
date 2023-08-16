@@ -32,3 +32,34 @@ xed .bashrc #=>eliminar la parte de conda
 ```
 
 # carga de datos
+
+descargaremos datos de kaggle.com buscamos "video game" y nos descargamos "video game sales with ratings" de rush kirubi. renombramos el archivo como vg.csv
+Abrimos el archivo de jupyter y añadimos
+```python
+import pandas as p
+df = p.read_csv("vg.csv")
+df.values #podremos acceder a todos los valores que se encuentran dentro de este dataframe
+```
+nos devuelve un array
+```python
+array([['Wii Sports', 'Wii', 2006.0, ..., 322.0, 'Nintendo', 'E'],
+       ['Super Mario Bros.', 'NES', 1985.0, ..., nan, nan, nan],
+       ['Mario Kart Wii', 'Wii', 2008.0, ..., 709.0, 'Nintendo', 'E'],
+       ...,
+       ['Haitaka no Psychedelica', 'PSV', 2016.0, ..., nan, nan, nan],
+       ['Spirits & Spells', 'GBA', 2003.0, ..., nan, nan, nan],
+       ['Winning Post 8 2016', 'PSV', 2016.0, ..., nan, nan, nan]],
+      dtype=object)
+```
+
+Otro metodo (shape) nos indica el numero de filas y columnas
+```python
+df.shape
+```
+el metodo describe() devuelve una matriz con algunas filas y algunas columnas.
+- **count** nos dice cuantas filas tienen ese dato relleno y si lo restamos de las filas totales sabemos cuantas filas no tienen dato
+- **mean** la media o los datos que mas se repiten
+- **std** desviacion estandar: de la media, cuanto se está desviando
+```python
+df.describe()
+```
