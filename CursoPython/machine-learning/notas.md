@@ -63,3 +63,16 @@ el metodo describe() devuelve una matriz con algunas filas y algunas columnas.
 ```python
 df.describe()
 ```
+# atajos utiles
+
+si pulsamos h saldra los atajos de teclado de jupyter
+presionando la tecla de esc pasamos al modo comando (no estamos editando ninguna celda)
+
+- Flechas arriba y abajo para desplazarse o letra **j** y **k**
+- **a** para agregar una celda antes de la celda actual
+- **d (dos veces)** para eliminar la celda actual
+- **para recortar**, vamos al modo de insercion (cuando estamos editando una celda). Editamos, damos escape y tecla x
+- **v** para pegar una celda cortada, debajo de donde estoy
+- **shift+tab** ver la documentacion de un metodo
+- **shift+enter** ejecuta la linea actual
+- seleccionamos con ctrl y luego ctrl+enter para ejecutar las seleccionadas.
