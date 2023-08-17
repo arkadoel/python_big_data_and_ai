@@ -118,3 +118,23 @@ donde y contendra la columna de juegos
 Yendo a la web https://scikit-learn.org/stable/user_guide.html podremos ver los diferentes modelos que hay (como el linear model). En nuestro caso vamos a usar el "Decision Trees"
 
 ![imagen](0004.png)
+
+Vemos que en data_juegos no tenemos para una edad=14. Va a ser el que vamos a tratar de predecir.
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+
+modelo = DecisionTreeClassifier()
+modelo.fit(X.values, y) # los dataframe sin los nombres de las columnas (por eso ponemos .values)
+predicciones = modelo.predict([
+    [14, 0],
+    [29, 0],
+    [30, 0]
+]) 
+#14,0 seria una tupla de X para la cual queremos hacer la prediccion edad=14, genero=0
+"""
+    vemos que devuelve un array de tipos "fps" para 14 años, "jrpg" para 29 años y 
+    "accion" para 30 años
+"""
+predicciones 
+```
