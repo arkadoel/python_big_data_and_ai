@@ -166,3 +166,51 @@ puntaje = accuracy_score(y_prueba, predicciones) # 0 => todas las predicciones m
 puntaje
 ```
 Nos salen puntajes bastante aleatorios con cada ejecucion y es debido a la poca data de la que disponemos. Para que se vuelva mas estable, necesita mas datos 
+
+
+# Persistencia del modelo
+
+Vamos a ver como guardar un modelo ya entrenado y poder volver a usarlo.
+Creamos una nueva celda y dejamos el codigo de esta manera
+```python
+from sklearn.tree import DecisionTreeClassifier
+import pandas as p
+data_juegos = p.read_csv("juegos-ml.csv")
+X = data_juegos.drop(columns=["juegos"])
+y = data_juegos["juegos"]
+
+modelo = DecisionTreeClassifier()
+modelo.fit(X.values, y) 
+
+predicciones = modelo.predict([
+    [14, 0]
+]) 
+predicciones 
+
+```
+con joblib guardamos el modelo
+```python
+from sklearn.tree import DecisionTreeClassifier
+import pandas as p
+import joblib
+
+data_juegos = p.read_csv("juegos-ml.csv")
+X = data_juegos.drop(columns=["juegos"])
+y = data_juegos["juegos"]
+
+modelo = DecisionTreeClassifier()
+modelo.fit(X.values, y) 
+predicciones = modelo.predict([
+    [14, 0]
+]) 
+
+joblib.dump(modelo, "recomendador-juegos.joblib") 
+```
+Y para cargar el modelo y usarlo:
+```python
+import joblib
+
+modelo = joblib.load("recomendador-juegos.joblib") 
+predicciones = modelo.predict([[14, 0]]) 
+predicciones
+```
