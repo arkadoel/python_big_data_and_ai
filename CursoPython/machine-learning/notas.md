@@ -76,3 +76,45 @@ presionando la tecla de esc pasamos al modo comando (no estamos editando ninguna
 - **shift+tab** ver la documentacion de un metodo
 - **shift+enter** ejecuta la linea actual
 - seleccionamos con ctrl y luego ctrl+enter para ejecutar las seleccionadas.
+
+
+# Explicacion del problema
+
+![imagen](0003.png)
+
+Por tanto queremos generar una prediccion dependiendo de los datos dados en el archivo **juegos-ml.csv**
+
+Veremos el codigo en [notebook juegos-ml](juegos-ml.ipynb)
+
+```python
+import pandas as p
+data_juegos = p.read_csv("juegos-ml.csv")
+data_juegos
+```
+
+# preparando los datos
+
+Entendemos preparar los datos a las acciones de quitar datos:
+- nulos
+- duplicados
+- incorrectos
+- no relevantes
+
+luego dividimos en dos
+- datos de entrada
+- datos de salida
+
+```python
+import pandas as p
+data_juegos = p.read_csv("juegos-ml.csv")
+X = data_juegos.drop(columns=["juegos"])
+y = data_juegos["juegos"]
+```
+donde X contendra las columnas de edad y genero.
+donde y contendra la columna de juegos
+
+# aprendiendo y decididiendo
+
+Yendo a la web https://scikit-learn.org/stable/user_guide.html podremos ver los diferentes modelos que hay (como el linear model). En nuestro caso vamos a usar el "Decision Trees"
+
+![imagen](0004.png)
